@@ -4,7 +4,7 @@ PACKER_CONFIG ?= raspbian.json
 .ONESHELL:
 
 build: validate
-	sudo bin/packer build "${PACKER_CONFIG}"
+	sudo PACKER_LOG=1 bin/packer build "${PACKER_CONFIG}"
 
 validate: bin/packer bin/packer-builder-arm raspbian.json
 	bin/packer validate "${PACKER_CONFIG}"
