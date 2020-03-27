@@ -1,0 +1,1 @@
+- change hostname before network goes up (systemd service?)

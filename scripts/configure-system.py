@@ -19,6 +19,7 @@ case "$1" in
   start)
     log_daemon_msg "Starting {init_path.name}"
     echo -n "rpi-$(uuid)" > /etc/hostname &&
+    hostnamectl set-hostname "$(cat /etc/hostname)" &&
     update-rc.d {init_path.name} remove &&
     rm {init_path} &&
     log_end_msg $?
