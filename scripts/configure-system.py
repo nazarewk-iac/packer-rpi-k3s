@@ -3,11 +3,10 @@ import os
 import subprocess
 from pathlib import Path
 
-init_path = Path('/etc/init.d/generate_hostname_once')
-init_content = f'''
-#!/bin/sh
+init_path = Path('/etc/init.d/00_generate_hostname_once')
+init_content = f'''#!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          {init_path.name}
+# Provides: {init_path.name}
 # Required-Start:
 # Required-Stop:
 # Default-Start: 1 2 3
@@ -49,6 +48,7 @@ def main():
 
     init_path.write_text(init_content)
     init_path.chmod(0o755)
+    subprocess.run(f'update-rc.d {init_path.name} defaults'.split())
 
 
 if __name__ == '__main__':

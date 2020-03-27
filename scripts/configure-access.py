@@ -17,7 +17,7 @@ def main():
 
 def setup_user(username, ssh_key):
     commands = [
-        f'adduser --shell /usr/bin/zsh {username}',
+        f'adduser --disabled-password --gecos "" --shell /usr/bin/zsh {username}',
         f'usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi {username}',
     ]
 
@@ -43,6 +43,7 @@ def secure_ssh():
         'ChallengeResponseAuthentication no',
         'PasswordAuthentication no',
         'UsePAM no',
+        'PubkeyAuthentication yes',
     ]
     new_lines = [
         line
