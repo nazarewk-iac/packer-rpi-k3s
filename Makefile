@@ -5,6 +5,7 @@ PACKER_CONFIG ?= raspbian.json
 
 .PHONY: build
 build: validate
+	$(MAKE) umount || true
 	sudo PACKER_LOG=1 bin/packer build "${PACKER_CONFIG}"
 	sudo chown "$(id -u):$(id -g)" raspberry-pi.img
 
