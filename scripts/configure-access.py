@@ -17,7 +17,7 @@ def main():
 
 def setup_user(username, ssh_key):
     commands = [
-        f'adduser -s /usr/bin/zsh {username}',
+        f'adduser --shell /usr/bin/zsh {username}',
         f'usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi {username}',
     ]
 
