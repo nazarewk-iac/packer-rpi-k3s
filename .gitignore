@@ -11,3 +11,4 @@ crash.log
 
 build
 *.img
+/mnt*

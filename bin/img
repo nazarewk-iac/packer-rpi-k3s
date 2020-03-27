@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -xeEuo pipefail
+default_img="raspberry-pi.img"
+default_mnt="mnt"
+
+main() {
+  cmd_"${1}" "${@:2}"
+}
+
+cmd_mount() {
+  local img="${1:-"${default_img}"}"
+  local target="${2:-"${default_mnt}"}"
+  local mounted="$(get_mounted "${img}")"
+
+  if [[ -n "${mounted}" ]]; then
+    echo "Already mounted as ${mounted}"
+    return 1
+  else
+    local lo="$(losetup -f)"
+    mkdir -p "${target}"
+    sudo losetup -P "${lo}" "${img}"
+    sudo mount "${lo}p2" "${target}"
+    sudo mount "${lo}p1" "${target}/boot"
+  fi
+}
+
+cmd_umount() {
+  local img="${1:-"${default_img}"}"
+  local mounted="$(get_mounted "${img}")"
+
+  if [[ -n "${mounted}" ]] ; then
+    for mountpoint in $(mount | grep "^/dev/loop2" | cut -d ' ' -f 3) ; do
+      sudo umount -R "${mountpoint}" || continue
+    done
+
+    sudo losetup -d "${mounted}"
+  else
+    echo "${img} is not mounted anywhere"
+  fi
+}
+
+get_mounted() {
+  local img="${1:-"${default_img}"}"
+  export img
+  losetup -J | jq -re '.loopdevices[] | select(.["back-file"] | endswith(env.img)).name'
+}
+
+main "${@}"

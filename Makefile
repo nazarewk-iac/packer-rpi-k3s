@@ -3,11 +3,30 @@ PACKER_CONFIG ?= raspbian.json
 
 .ONESHELL:
 
+.PHONY: build
 build: validate
 	sudo PACKER_LOG=1 bin/packer build "${PACKER_CONFIG}"
+	sudo chown "$(id -u):$(id -g)" raspberry-pi.img
 
+.PHONY: validate
 validate: bin/packer bin/packer-builder-arm raspbian.json
 	bin/packer validate "${PACKER_CONFIG}"
+
+raspberry-pi.img:
+	$(MAKE) build
+
+.PHONY: bake
+bake: raspberry-pi.img
+	sudo dd if=raspberry-pi.img of=/dev/mmcblk0 bs=4K status=progress
+
+.PHONY: mount
+mount: raspberry-pi.img
+	bin/img mount raspberry-pi.img ./mnt-new
+
+.PHONY: umount
+umount:
+	bin/img umount raspberry-pi.img
+
 
 bin/packer:
 	mkdir -p bin

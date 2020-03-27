@@ -46,7 +46,12 @@
   "provisioners": [
     {
       "type": "shell",
-      "script": "scripts/k3s-download.sh"
+      "scripts": [
+        "scripts/configure-system.py",
+        "scripts/configure-access.py",
+        "scripts/k3s-prerequisites.py",
+        "scripts/k3s-download.sh"
+      ]
     }
   ]
 }
