@@ -17,7 +17,8 @@ raspberry-pi.img:
 
 .PHONY: bake
 bake: raspberry-pi.img
-	sudo dd if=raspberry-pi.img of=/dev/mmcblk0 bs=4K status=progress
+	[[ -b /dev/mmcblk0 ]] || exit 1
+	sudo dd if=raspberry-pi.img of=/dev/mmcblk0 bs=4M status=progress
 
 .PHONY: mount
 mount: raspberry-pi.img
