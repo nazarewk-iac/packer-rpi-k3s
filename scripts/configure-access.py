@@ -31,7 +31,7 @@ def setup_user(username, ssh_key):
     authorized_keys.write_text(ssh_key)
     authorized_keys.chmod(0o600)
 
-    subprocess.run(f'chown -R {username}:{username} /home/{username}')
+    subprocess.run(f'chown -R {username}:{username} /home/{username}'.split())
 
     Path(f'/etc/sudoers.d/010-{username}-nopasswd').write_text(f'{username} ALL=(ALL) NOPASSWD: ALL')
 

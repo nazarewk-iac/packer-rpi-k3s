@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import subprocess
 from pathlib import Path
 
@@ -32,6 +33,8 @@ esac
 
 
 def main():
+    os.environ['DEBIAN_FRONTEND'] = 'noninteractive'
+
     commands = [
         'apt update',
         'apt upgrade -y',
