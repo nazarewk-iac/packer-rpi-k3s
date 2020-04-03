@@ -1,1 +1,4 @@
 - change hostname before network goes up (systemd service?)
+- avahi doesn't pick up new hostname
+- sudo doesn't pick up new hostname
+- change hostname in /etc/hosts ?

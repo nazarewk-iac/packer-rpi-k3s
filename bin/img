@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -xeEuo pipefail
-default_img="raspberry-pi.img"
+default_img="output/raspberry-pi.img"
 default_mnt="mnt"
 
 main() {

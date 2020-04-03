@@ -2,6 +2,7 @@
 ### Packer template
 # Cache objects
 packer_cache/
+/packer-builder-arm
 
 # Crash log
 crash.log

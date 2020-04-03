@@ -1,4 +1,4 @@
-PACKER_VERSION ?= 1.4.5
+PACKER_VERSION ?= 1.5.5
 PACKER_CONFIG ?= raspbian.json
 
 .ONESHELL:

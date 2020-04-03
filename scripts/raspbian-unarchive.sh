@@ -3,12 +3,13 @@ set -xeEuo pipefail
 
 ARCHIVE_PATH="${1}"
 MOUNTPOINT="${2}"
-
-unzip "${ARCHIVE_PATH}" -d "${MOUNTPOINT}"
+pwd
+cd packer_cache
+unzip -n "${ARCHIVE_PATH}"
+lo_device="$(losetup -f)"
+img_path="${PWD}/$(echo -n *raspbian-*-lite.img)"
 
 cd "${MOUNTPOINT}"
-lo_device="$(losetup -f)"
-img_path="$(echo -n *.img)"
 
 setup () {
   mkdir -p ./mnt
